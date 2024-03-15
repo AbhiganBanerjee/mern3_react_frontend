@@ -32,7 +32,7 @@ const ExplorePageHome = ()=>{
                         <Link to="insertProducts"><Button className="fs-6 w-100 font-monospace fw-bolder" variant="contained" size="medium" style={{backgroundColor:"#A1BE95",color:"#F98866"}}><ShoppingBag/>&nbsp;Insert Products</Button></Link>
                     </div>
                 </nav>
-                <main className="col-9 mt-2 mb-2 d-flex justify-content-center align-items-center" style={{height:"618px"}}>
+                <main className="col-9 mt-2 mb-2 d-flex justify-content-center align-items-center" style={{height:"625px"}}>
                     <Outlet/>
                 </main>
             </section>
