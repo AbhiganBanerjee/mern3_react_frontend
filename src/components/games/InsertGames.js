@@ -39,7 +39,7 @@ const InsertGames = ()=>{
                     />
                     {/* Make the Form in the Card Body */}
                     <CardContent className="mt-2 card-body">
-                        <form encType="multipart/form-data" action="http://localhost:4000/insertGames" method="POST">
+                        <form encType="multipart/form-data" action="https://mern3-node-mongo.onrender.com/insertGames" method="POST">
                             <div className="mt-1 mb-3">
                                 <TextField
                                     required
