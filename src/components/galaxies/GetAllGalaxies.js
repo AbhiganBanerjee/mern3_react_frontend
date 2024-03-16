@@ -56,6 +56,13 @@ const GetAllGalaxies = ()=>{
             headers: {
                 'Content-Type': 'application/json',
             },
+        }).then((res) => {
+            console.log(res); // Log the response for debugging
+            // Handle the response as needed
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            // Handle errors
         });
         
 
