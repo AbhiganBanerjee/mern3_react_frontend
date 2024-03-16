@@ -249,7 +249,7 @@ const GetAllProducts = () => {
                     <CardContent className="row card-body">
                         <Typography className="font-monospace mb-1">
                             Price: <b className="font-monospace">{products[idx].price}</b><br />
-                            Author: <b className="font-monospace">{products[idx].author}</b><br />
+                            Category: <b className="font-monospace">{products[idx].category}</b><br />
                         </Typography>
                         <CardActions className="col-1 d-flex justify-content-center flex-column">
                             <Button onClick={prevClick} variant="text" size="small" color="inherit"><b><ChevronLeft /></b></Button>
