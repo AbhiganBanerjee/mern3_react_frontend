@@ -1,4 +1,4 @@
-import {AddShoppingCart, AutoAwesome, Bookmark, BookmarkBorder, Check, ChevronLeft, ChevronRight, Close, Delete, DeleteOutline, Favorite, FavoriteBorder, MoreHoriz, PauseCircle, PlayCircle, ShoppingCart } from "@mui/icons-material";
+import {AddShoppingCart, AutoAwesome, Bookmark, BookmarkBorder, Check, ChevronLeft, ChevronRight, Close, DarkMode, Delete, DeleteOutline, Favorite, FavoriteBorder, LightMode, MoreHoriz, PauseCircle, PlayCircle, ShoppingCart } from "@mui/icons-material";
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Container, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -219,6 +219,11 @@ const GetAllBooks = ()=>{
 
     // style={{backgroundColor:"#FEE715",color:"#101820"}}
 
+    const[isTheme,setIsTheme] = useState(false);
+    const cardTheme = ()=>{
+        setIsTheme(!isTheme);
+    }
+
     return(
         <div className="container-fluid">
             <header className="m-1 p-1 text-center" style={{border:"2px solid #CC313D",backgroundColor:"#F7C5CC",color:"#CC313D"}}>
@@ -228,19 +233,19 @@ const GetAllBooks = ()=>{
             </header>
             <Container component="main" maxWidth="xs">
                 {/* Start the Card */}
-                <Card style={{backgroundColor:"#F7C5CC",color:"#CC313D"}} className="mt-3 mb-2" elevation={4} >
+                <Card style={{backgroundColor: !isTheme ? "#F7C5CC" : "#CC313D",color: !isTheme ? "#CC313D" : "#F7C5CC"}} className="mt-3 mb-2" elevation={4} >
                     {/* Create the Card Header */}
                     <CardHeader 
                         avatar = {
                             <Avatar 
-                                style={{border:"2px solid #CC313D",borderRadius:"50%"}} 
+                                style={{border:!isTheme ? "2px solid #CC313D" : "2px solid #F7C5CC" ,borderRadius:"50%"}} 
                                 // data:image/jpeg;base64,{{ base64Image }}
                                 src={`data:image/jpeg;base64,${books[idx].image}`}
                             />
                         }
                         action = {
-                            <IconButton color="inherit">
-                                <MoreHoriz/>
+                            <IconButton onClick={cardTheme} color="inherit">
+                                {!isTheme ? <DarkMode/> : <LightMode/>}
                             </IconButton>
                         }
                         title = {<b className="fs-5 font-monospace fw-bolder fst-italic">{books[idx].name}</b>}
@@ -260,17 +265,17 @@ const GetAllBooks = ()=>{
                                 component="img"
                                 //image={`data:${actualImg.contentType};base64,${base64Image}`}
                                 image={`data:image/jpeg;base64,${books[idx].image}`}
-                                style={{border:"3px solid #CC313D"}}
+                                style={{border: !isTheme ? "4px solid #CC313D" : "4px solid #F7C5CC"}}
                                 height="340"
                             />
-                            <b className="font-monospace text-center fst-italic" id="status" style={{display:"none",color:"#CC313D"}}></b>
+                            <b className="font-monospace text-center fst-italic" id="status" style={{display:"none",color: !isTheme ? "#CC313D" : "#F7C5CC"}}></b>
                         </div>
                         <CardActions className="col-1 d-flex justify-content-center flex-column">
                             <Button onClick={prevClick} variant="text" size="small" color="inherit"><b><ChevronRight/></b></Button>
                         </CardActions>
                     </CardContent>
                     {/* Card Footer */}
-                    <div className="row" style={{borderTop:"2px solid #CC313D"}}>
+                    <div className="row" style={{borderTop: !isTheme ? "2px solid #CC313D" : "2px solid #F7C5CC"}}>
                         <div className="col-4 d-flex justify-content-center">
                             <IconButton onClick={favClick} color="inherit">
                                 {!isFav ? <FavoriteBorder/> : <Favorite/>}

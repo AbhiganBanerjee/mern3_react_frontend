@@ -1,4 +1,4 @@
-import {AddShoppingCart, AutoAwesome, Bookmark, BookmarkBorder, Check, ChevronLeft, ChevronRight, Close, Delete, DeleteOutline, Favorite, FavoriteBorder, MoreHoriz, PauseCircle, PlayCircle, ShoppingCart } from "@mui/icons-material";
+import {AddShoppingCart, AutoAwesome, Bookmark, BookmarkBorder, Check, ChevronLeft, ChevronRight, Close, DarkMode, Delete, DeleteOutline, Favorite, FavoriteBorder, LightMode, MoreHoriz, PauseCircle, PlayCircle, ShoppingCart } from "@mui/icons-material";
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Container, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -201,9 +201,9 @@ const GetAllGalaxies = ()=>{
             setTimer(setInterval(()=>{
                 setIdx((prevIdx)=>(prevIdx+1)%len);
             },2000))
-            sts.innerHTML = `Slideshow has Started.. :)`.fontcolor('white');
+            sts.innerHTML = `Slideshow has Started.. :)`;
         }else{
-            sts.innerHTML = `Slideshow has Stopped!! :(`.fontcolor('white');
+            sts.innerHTML = `Slideshow has Stopped!! :(`;
             clearInterval(timer);
             //Hide the status para again after 2sec of pausing
             setTimeout(()=>{
@@ -228,6 +228,11 @@ const GetAllGalaxies = ()=>{
         setIdx((idx+1)%len);
     }
 
+    const[isTheme,setIsTheme] = useState(true);
+    const cardTheme = ()=>{
+        setIsTheme(!isTheme);
+    }
+
     return(
         <div className="container-fluid">
             <header className="m-1 p-1 text-center text-white" style={{border:"2px solid white",backgroundColor:"black"}}>
@@ -237,19 +242,19 @@ const GetAllGalaxies = ()=>{
             </header>
             <Container component="main" maxWidth="xs">
                 {/* Start the Card */}
-                <Card style={{backgroundColor:"black"}} className="text-white mt-3 mb-2" elevation={4} >
+                <Card style={{backgroundColor: isTheme ? "black" : "white", color : isTheme ? "white" : "black"}} className="mt-3 mb-2" elevation={4} >
                     {/* Create the Card Header */}
                     <CardHeader 
                         avatar = {
                             <Avatar 
-                                style={{border:"2px solid white",borderRadius:"50%"}} 
+                                style={{border:isTheme ? "2px solid white" : "2px solid black",borderRadius:"50%"}} 
                                 // data:image/jpeg;base64,{{ base64Image }}
                                 src={`data:image/jpeg;base64,${galaxies[idx].image}`}
                             />
                         }
                         action = {
-                            <IconButton color="inherit">
-                                <MoreHoriz/>
+                            <IconButton onClick={cardTheme} color="inherit">
+                                {!isTheme ? <DarkMode/> : <LightMode/>}
                             </IconButton>
                         }
                         title = {<b className="fs-5 font-monospace fw-bolder fst-italic">{galaxies[idx].name}</b>}
@@ -269,17 +274,17 @@ const GetAllGalaxies = ()=>{
                                 component="img"
                                 //image={`data:${actualImg.contentType};base64,${base64Image}`}
                                 image={`data:image/jpeg;base64,${galaxies[idx].image}`}
-                                style={{border:"3px solid white"}}
+                                style={{border: isTheme ? "4px solid white" : "4px solid black"}}
                                 height="340"
                             />
-                            <b className="font-monospace text-center fst-italic" id="status" style={{display:"none"}}></b>
+                            <b className="font-monospace text-center fst-italic" id="status" style={{display:"none",color : isTheme ? "white" : "black"}}></b>
                         </div>
                         <CardActions className="col-1 d-flex justify-content-center flex-column">
                             <Button onClick={prevClick} variant="text" size="small" color="inherit"><b><ChevronRight/></b></Button>
                         </CardActions>
                     </CardContent>
                     {/* Card Footer */}
-                    <div className="row" style={{borderTop:"2px solid white"}}>
+                    <div className="row" style={{borderTop: isTheme ? "2px solid white" : "2px solid black"}}>
                         <div className="col-4 d-flex justify-content-center">
                             <IconButton onClick={favClick} color="inherit">
                                 {!isFav ? <FavoriteBorder/> : <Favorite/>}

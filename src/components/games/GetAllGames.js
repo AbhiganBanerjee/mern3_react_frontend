@@ -1,4 +1,4 @@
-import {AddShoppingCart, AutoAwesome, Bookmark, BookmarkBorder, Check, ChevronLeft, ChevronRight, Close, Delete, DeleteOutline, Favorite, FavoriteBorder, MoreHoriz, PauseCircle, PlayCircle, ShoppingCart } from "@mui/icons-material";
+import {AddShoppingCart, AutoAwesome, Bookmark, BookmarkBorder, Check, ChevronLeft, ChevronRight, Close, DarkMode, Delete, DeleteOutline, Favorite, FavoriteBorder, LightMode, MoreHoriz, PauseCircle, PlayCircle, ShoppingCart } from "@mui/icons-material";
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Container, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -221,6 +221,11 @@ const GetAllGames = ()=>{
 
     // style={{backgroundColor:"#FEE715",color:"#101820"}}
 
+    const[isTheme,setIsTheme] = useState(true);
+    const cardTheme = ()=>{
+        setIsTheme(!isTheme);
+    }
+
     return(
         <div className="container-fluid">
             <header className="m-1 p-1 text-center" style={{border:"2px solid #101820",backgroundColor:"#FEE715",color:"#101820"}}>
@@ -230,19 +235,19 @@ const GetAllGames = ()=>{
             </header>
             <Container component="main" maxWidth="xs">
                 {/* Start the Card */}
-                <Card style={{backgroundColor:"#FEE715",color:"#101820"}} className="mt-3 mb-2" elevation={4} >
+                <Card style={{backgroundColor: isTheme ? "#FEE715" : "#101820",color: isTheme ? "#101820" : "#FEE715"}} className="mt-3 mb-2" elevation={4} >
                     {/* Create the Card Header */}
                     <CardHeader 
                         avatar = {
                             <Avatar 
-                                style={{border:"2px solid #101820",borderRadius:"50%"}} 
+                                style={{border:isTheme ? "2px solid #101820" : "2px solid #FEE715",borderRadius:"50%"}} 
                                 // data:image/jpeg;base64,{{ base64Image }}
                                 src={`data:image/jpeg;base64,${games[idx].image}`}
                             />
                         }
                         action = {
-                            <IconButton color="inherit">
-                                <MoreHoriz/>
+                            <IconButton onClick={cardTheme} color="inherit">
+                                {isTheme ? <DarkMode/> : <LightMode/>}
                             </IconButton>
                         }
                         title = {<b className="fs-5 font-monospace fw-bolder fst-italic">{games[idx].name}</b>}
@@ -262,17 +267,17 @@ const GetAllGames = ()=>{
                                 component="img"
                                 //image={`data:${actualImg.contentType};base64,${base64Image}`}
                                 image={`data:image/jpeg;base64,${games[idx].image}`}
-                                style={{border:"3px solid #101820"}}
+                                style={{border:isTheme ? "4px solid #101820" : "4px solid #FEE715"}}
                                 height="340"
                             />
-                            <b className="font-monospace text-center fst-italic" id="status" style={{display:"none",color:"#101820"}}></b>
+                            <b className="font-monospace text-center fst-italic" id="status" style={{display:"none",color: isTheme ? "#101820" : "#FEE715"}}></b>
                         </div>
                         <CardActions className="col-1 d-flex justify-content-center flex-column">
                             <Button onClick={prevClick} variant="text" size="small" color="inherit"><b><ChevronRight/></b></Button>
                         </CardActions>
                     </CardContent>
                     {/* Card Footer */}
-                    <div className="row" style={{borderTop:"2px solid #101820"}}>
+                    <div className="row" style={{borderTop: isTheme ? "2px solid #101820" : "2px solid #FEE715"}}>
                         <div className="col-4 d-flex justify-content-center">
                             <IconButton onClick={favClick} color="inherit">
                                 {!isFav ? <FavoriteBorder/> : <Favorite/>}

@@ -1,4 +1,4 @@
-import { AddShoppingCart, Bookmark, BookmarkBorder, Check, ChevronLeft, ChevronRight, Close, Delete, DeleteOutline, Favorite, FavoriteBorder, MoreHoriz, Movie, PauseCircle, PlayCircle, ShoppingCart } from "@mui/icons-material";
+import { AddShoppingCart, Bookmark, BookmarkBorder, Check, ChevronLeft, ChevronRight, Close, DarkMode, Delete, DeleteOutline, Favorite, FavoriteBorder, LightMode, MoreHoriz, Movie, PauseCircle, PlayCircle, ShoppingCart } from "@mui/icons-material";
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Container, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -217,6 +217,11 @@ const GetAllMovies = ()=>{
     }
 
     // Hex codes: #00246B, #CADCFC
+    const[isTheme,setIsTheme] = useState(false);
+    const cardTheme = ()=>{
+        setIsTheme(!isTheme);
+    }
+
     return(
         <div className="container-fluid">
             <header className="m-1 p-1 text-center" style={{border:"2px solid #00246B",backgroundColor:"#CADCFC",color:"#00246B"}}>
@@ -226,19 +231,19 @@ const GetAllMovies = ()=>{
             </header>
             <Container component="main" maxWidth="xs">
                 {/* Start the Card */}
-                <Card style={{backgroundColor:"#CADCFC",color:"#00246B"}} className="mt-3 mb-2" elevation={4} >
+                <Card style={{backgroundColor: !isTheme ? "#CADCFC" : "#00246B",color:!isTheme ? "#00246B" : "#CADCFC"}} className="mt-3 mb-2" elevation={4} >
                     {/* Create the Card Header */}
                     <CardHeader 
                         avatar = {
                             <Avatar 
-                                style={{border:"2px solid #00246B",borderRadius:"50%"}} 
+                                style={{border: !isTheme ? "2px solid #00246B" : "2px solid #CADCFC",borderRadius:"50%"}} 
                                 // data:image/jpeg;base64,{{ base64Image }}
                                 src={`data:image/jpeg;base64,${games[idx].image}`}
                             />
                         }
                         action = {
-                            <IconButton color="inherit">
-                                <MoreHoriz/>
+                            <IconButton onClick={cardTheme} color="inherit">
+                                {!isTheme ? <DarkMode/> : <LightMode/>}
                             </IconButton>
                         }
                         title = {<b className="fs-5 font-monospace fw-bolder fst-italic">{games[idx].name}</b>}
@@ -258,17 +263,17 @@ const GetAllMovies = ()=>{
                                 component="img"
                                 //image={`data:${actualImg.contentType};base64,${base64Image}`}
                                 image={`data:image/jpeg;base64,${games[idx].image}`}
-                                style={{border:"3px solid #00246B"}}
+                                style={{border:!isTheme ? "4px solid #00246B" : "4px solid #CADCFC"}}
                                 height="340"
                             />
-                            <b className="font-monospace text-center fst-italic" id="status" style={{display:"none",color:"#00246B"}}></b>
+                            <b className="font-monospace text-center fst-italic" id="status" style={{display:"none",color: !isTheme ? "#00246B" : "#CADCFC"}}></b>
                         </div>
                         <CardActions className="col-1 d-flex justify-content-center flex-column">
-                            <Button onClick={prevClick} variant="text" size="small" color="inherit"><b><ChevronRight/></b></Button>
+                            <Button onClick={nextClick} variant="text" size="small" color="inherit"><b><ChevronRight/></b></Button>
                         </CardActions>
                     </CardContent>
                     {/* Card Footer */}
-                    <div className="row" style={{borderTop:"2px solid #00246B"}}>
+                    <div className="row" style={{borderTop:!isTheme ? "2px solid #00246B" : "2px solid #CADCFC"}}>
                         <div className="col-4 d-flex justify-content-center">
                             <IconButton onClick={favClick} color="inherit">
                                 {!isFav ? <FavoriteBorder/> : <Favorite/>}

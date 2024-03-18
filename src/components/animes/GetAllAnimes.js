@@ -1,4 +1,4 @@
-import {AddShoppingCart, AutoAwesome, Bookmark, BookmarkBorder, Check, ChevronLeft, ChevronRight, Close, Delete, DeleteOutline, Favorite, FavoriteBorder, MoreHoriz, PauseCircle, PlayCircle, ShoppingCart } from "@mui/icons-material";
+import {AddShoppingCart, AutoAwesome, Bookmark, BookmarkBorder, Check, ChevronLeft, ChevronRight, Close, DarkMode, Delete, DeleteOutline, Favorite, FavoriteBorder, LightMode, MoreHoriz, PauseCircle, PlayCircle, ShoppingCart } from "@mui/icons-material";
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Container, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -218,6 +218,11 @@ const GetAllAnimes = ()=>{
     }
 
     // style={{backgroundColor:"#FEE715",color:"#101820"}}
+    const[isTheme,setIsTheme] = useState(false);
+
+    const cardTheme = ()=>{ 
+        setIsTheme(!isTheme);
+    }
 
     return(
         <div className="container-fluid">
@@ -228,19 +233,19 @@ const GetAllAnimes = ()=>{
             </header>
             <Container component="main" maxWidth="xs">
                 {/* Start the Card */}
-                <Card style={{backgroundColor:"green",color:"maroon"}} className="mt-3 mb-2" elevation={4} >
+                <Card style={{backgroundColor:!isTheme ? "green" : "maroon",color:!isTheme ? "maroon" : "green"}} className="mt-3 mb-2" elevation={4} >
                     {/* Create the Card Header */}
                     <CardHeader 
                         avatar = {
                             <Avatar 
-                                style={{border:"2px solid maroon",borderRadius:"50%"}} 
+                                style={{border:!isTheme ? "2px solid maroon" :"2px solid green" ,borderRadius:"50%"}} 
                                 // data:image/jpeg;base64,{{ base64Image }}
                                 src={`data:image/jpeg;base64,${games[idx].image}`}
                             />
                         }
                         action = {
-                            <IconButton color="inherit">
-                                <MoreHoriz/>
+                            <IconButton onClick={cardTheme} color="inherit">
+                                {!isTheme ? <DarkMode/> : <LightMode/>}
                             </IconButton>
                         }
                         title = {<b className="fs-5 font-monospace fw-bolder fst-italic">{games[idx].name}</b>}
@@ -260,17 +265,17 @@ const GetAllAnimes = ()=>{
                                 component="img"
                                 //image={`data:${actualImg.contentType};base64,${base64Image}`}
                                 image={`data:image/jpeg;base64,${games[idx].image}`}
-                                style={{border:"3px solid maroon"}}
+                                style={{border: !isTheme ? "4px solid maroon" : "4px solid green"}}
                                 height="340"
                             />
-                            <b className="font-monospace text-center fst-italic" id="status" style={{display:"none",color:"maroon"}}></b>
+                            <b className="font-monospace text-center fst-italic" id="status" style={{display:"none",color: !isTheme ? "maroon" : "green"}}></b>
                         </div>
                         <CardActions className="col-1 d-flex justify-content-center flex-column">
                             <Button onClick={prevClick} variant="text" size="small" color="inherit"><b><ChevronRight/></b></Button>
                         </CardActions>
                     </CardContent>
                     {/* Card Footer */}
-                    <div className="row" style={{borderTop:"2px solid maroon"}}>
+                    <div className="row" style={{borderTop: !isTheme ? "2px solid maroon" : "2px solid green"}}>
                         <div className="col-4 d-flex justify-content-center">
                             <IconButton onClick={favClick} color="inherit">
                                 {!isFav ? <FavoriteBorder/> : <Favorite/>}

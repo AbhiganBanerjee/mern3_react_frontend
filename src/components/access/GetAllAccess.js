@@ -1,4 +1,4 @@
-import { AddShoppingCart, AutoAwesome, Bookmark, BookmarkBorder, Check, ChevronLeft, ChevronRight, Close, Delete, DeleteOutline, Favorite, FavoriteBorder, MoreHoriz, PauseCircle, PlayCircle, ShoppingCart } from "@mui/icons-material";
+import { AddShoppingCart, AutoAwesome, Bookmark, BookmarkBorder, Check, ChevronLeft, ChevronRight, Close, DarkMode, Delete, DeleteOutline, Favorite, FavoriteBorder, LightMode, MoreHoriz, PauseCircle, PlayCircle, ShoppingCart } from "@mui/icons-material";
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Container, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
@@ -181,6 +181,12 @@ const GetAllAccess = () => {
         setIdx((idx + 1) % len);
     }
 
+    //Set card toggle theme
+    const[isTheme,setIsTheme] = useState(false);
+    const cardTheme = ()=>{
+        setIsTheme(!isTheme);
+    }
+
     return (
         <div className="container-fluid">
             <header className="m-1 p-1 text-center" style={{ border: "2px solid #735DA5", backgroundColor: "#D3C5E5", color: "#735DA5" }}>
@@ -189,17 +195,17 @@ const GetAllAccess = () => {
                 </h4>
             </header>
             <Container component="main" maxWidth="xs">
-                <Card style={{ backgroundColor: "#D3C5E5", color: "#735DA5" }} className="mt-3 mb-2" elevation={4} >
+                <Card style={{ backgroundColor: !isTheme ? "#D3C5E5" : "#735DA5", color: !isTheme ? "#735DA5" : "#D3C5E5" }} className="mt-3 mb-2" elevation={4} >
                     <CardHeader
                         avatar={
                             <Avatar
-                                style={{ border: "2px solid #735DA5", borderRadius: "50%" }}
+                                style={{ border: !isTheme ? "2px solid #735DA5" : "2px solid #D3C5E5" , borderRadius: "50%" }}
                                 src={`data:image/jpeg;base64,${products[idx].image}`}
                             />
                         }
                         action={
-                            <IconButton color="inherit">
-                                <MoreHoriz />
+                            <IconButton onClick={cardTheme} color="inherit">
+                                {!isTheme ? <DarkMode/> : <LightMode/>}
                             </IconButton>
                         }
                         title={<b className="fs-5 font-monospace fw-bolder fst-italic">{products[idx].name}</b>}
@@ -216,16 +222,16 @@ const GetAllAccess = () => {
                             <CardMedia
                                 component="img"
                                 image={`data:image/jpeg;base64,${products[idx].image}`}
-                                style={{ border: "3px solid #735DA5" }}
+                                style={{ border: !isTheme ? "4px solid #735DA5" : "4px solid #D3C5E5"}}
                                 height="340"
                             />
-                            <b className="font-monospace text-center fst-italic" id="status" style={{ display: "none", color: "#735DA5" }}></b>
+                            <b className="font-monospace text-center fst-italic" id="status" style={{ display: "none",color: !isTheme ? "#735DA5" : "#D3C5E5"}} ></b>
                         </div>
                         <CardActions className="col-1 d-flex justify-content-center flex-column">
                             <Button onClick={prevClick} variant="text" size="small" color="inherit"><b><ChevronRight /></b></Button>
                         </CardActions>
                     </CardContent>
-                    <div className="row" style={{ borderTop: "2px solid #735DA5" }}>
+                    <div className="row" style={{ borderTop:!isTheme ? "2px solid #735DA5" : "2px solid #D3C5E5" }}>
                         <div className="col-4 d-flex justify-content-center">
                             <IconButton onClick={favClick} color="inherit">
                                 {!isFav ? <FavoriteBorder /> : <Favorite />}
